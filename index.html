@@ -1,1134 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shadow MD Bot - Premium WhatsApp Bot Connector</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            min-height: 100vh;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .bg-animation li {
-            position: absolute;
-            display: block;
-            list-style: none;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            animation: animate 25s linear infinite;
-            bottom: -150px;
-            border-radius: 50%;
-        }
-
-        .bg-animation li:nth-child(1) {
-            left: 25%;
-            width: 80px;
-            height: 80px;
-            animation-delay: 0s;
-            background: rgba(147, 51, 234, 0.3);
-        }
-
-        .bg-animation li:nth-child(2) {
-            left: 10%;
-            width: 20px;
-            height: 20px;
-            animation-delay: 2s;
-            animation-duration: 12s;
-            background: rgba(59, 130, 246, 0.3);
-        }
-
-        .bg-animation li:nth-child(3) {
-            left: 70%;
-            width: 20px;
-            height: 20px;
-            animation-delay: 4s;
-            background: rgba(236, 72, 153, 0.3);
-        }
-
-        .bg-animation li:nth-child(4) {
-            left: 40%;
-            width: 60px;
-            height: 60px;
-            animation-delay: 0s;
-            animation-duration: 18s;
-            background: rgba(16, 185, 129, 0.3);
-        }
-
-        .bg-animation li:nth-child(5) {
-            left: 65%;
-            width: 20px;
-            height: 20px;
-            animation-delay: 0s;
-            background: rgba(245, 158, 11, 0.3);
-        }
-
-        .bg-animation li:nth-child(6) {
-            left: 75%;
-            width: 110px;
-            height: 110px;
-            animation-delay: 3s;
-            background: rgba(239, 68, 68, 0.3);
-        }
-
-        .bg-animation li:nth-child(7) {
-            left: 35%;
-            width: 150px;
-            height: 150px;
-            animation-delay: 7s;
-            background: rgba(147, 51, 234, 0.2);
-        }
-
-        .bg-animation li:nth-child(8) {
-            left: 50%;
-            width: 25px;
-            height: 25px;
-            animation-delay: 15s;
-            animation-duration: 45s;
-            background: rgba(59, 130, 246, 0.3);
-        }
-
-        .bg-animation li:nth-child(9) {
-            left: 20%;
-            width: 15px;
-            height: 15px;
-            animation-delay: 2s;
-            animation-duration: 35s;
-            background: rgba(236, 72, 153, 0.3);
-        }
-
-        .bg-animation li:nth-child(10) {
-            left: 85%;
-            width: 150px;
-            height: 150px;
-            animation-delay: 0s;
-            animation-duration: 11s;
-            background: rgba(16, 185, 129, 0.2);
-        }
-
-        @keyframes animate {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-                border-radius: 0;
-            }
-            100% {
-                transform: translateY(-1000px) rotate(720deg);
-                opacity: 0;
-                border-radius: 50%;
-            }
-        }
-
-        /* Glassmorphism Container */
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header Section */
-        .header {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .logo-container {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .logo {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
-            animation: pulse 2s infinite;
-            position: relative;
-            z-index: 2;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(102, 126, 234, 0.6); }
-            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(102, 126, 234, 0.8); }
-        }
-
-        .logo-ring {
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border: 2px solid rgba(102, 126, 234, 0.5);
-            border-radius: 50%;
-            animation: rotate 10s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .subtitle {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            font-weight: 300;
-        }
-
-        /* Server Selection Card */
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
-        }
-
-        .server-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .server-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .server-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .server-details h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-
-        .server-stats {
-            display: flex;
-            gap: 20px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .stat {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #10b981;
-            border-radius: 50%;
-            animation: blink 2s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .select-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .select-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
-        }
-
-        /* Server Dropdown */
-        .server-dropdown {
-            display: none;
-            margin-top: 15px;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .server-dropdown.active {
-            display: block;
-        }
-
-        .server-list {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .server-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .server-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(102, 126, 234, 0.5);
-            transform: translateX(5px);
-        }
-
-        .server-item.selected {
-            background: rgba(102, 126, 234, 0.2);
-            border-color: #667eea;
-        }
-
-        .server-item-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .server-number {
-            width: 35px;
-            height: 35px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .server-item.selected .server-number {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        }
-
-        .server-status {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .select-text {
-            color: #667eea;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .server-item.selected .select-text {
-            color: #10b981;
-        }
-
-        /* Premium Setup Card */
-        .premium-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-            border: 1px solid rgba(102, 126, 234, 0.5);
-        }
-
-        .premium-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .premium-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            from { box-shadow: 0 0 5px #fbbf24; }
-            to { box-shadow: 0 0 20px #fbbf24, 0 0 40px #f59e0b; }
-        }
-
-        .premium-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fbbf24;
-        }
-
-        .premium-desc {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        /* Input Section */
-        .input-group {
-            margin-bottom: 25px;
-        }
-
-        .input-label {
-            display: block;
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 20px;
-            color: #667eea;
-            font-size: 1.2rem;
-        }
-
-        .phone-input {
-            width: 100%;
-            padding: 18px 20px 18px 55px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            color: #fff;
-            font-size: 1.1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .phone-input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .phone-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .hint {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .hint i {
-            color: #fbbf24;
-        }
-
-        /* Generate Button */
-        .generate-btn {
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 15px;
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .generate-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .generate-btn:hover::before {
-            left: 100%;
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
-        }
-
-        .generate-btn:active {
-            transform: translateY(-1px);
-        }
-
-        .generate-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .generate-btn.loading {
-            pointer-events: none;
-        }
-
-        .spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        .generate-btn.loading .spinner {
-            display: block;
-        }
-
-        .generate-btn.loading .btn-text {
-            display: none;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Result Box */
-        .result-box {
-            margin-top: 25px;
-            padding: 25px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px dashed rgba(102, 126, 234, 0.5);
-            border-radius: 15px;
-            text-align: center;
-            min-height: 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .result-box.has-result {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: #10b981;
-            border-style: solid;
-        }
-
-        .result-box.error {
-            background: rgba(239, 68, 68, 0.1);
-            border-color: #ef4444;
-        }
-
-        .result-placeholder {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 1rem;
-        }
-
-        .pair-code {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 5px;
-            color: #10b981;
-            margin: 10px 0;
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .result-message {
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-
-        .copy-btn {
-            margin-top: 15px;
-            padding: 10px 25px;
-            background: rgba(16, 185, 129, 0.2);
-            border: 1px solid #10b981;
-            color: #10b981;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .copy-btn:hover {
-            background: #10b981;
-            color: #fff;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 30px 20px;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 30px;
-        }
-
-        .footer-brand {
-            color: #667eea;
-            font-weight: 700;
-        }
-
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: rgba(16, 185, 129, 0.9);
-            color: #fff;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-weight: 600;
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-
-        .toast.error {
-            background: rgba(239, 68, 68, 0.9);
-        }
-
-        /* Responsive */
-        @media (max-width: 480px) {
-            .title {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 15px;
-            }
-            
-            .card {
-                padding: 20px;
-            }
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(102, 126, 234, 0.5);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(102, 126, 234, 0.8);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadow MD Bot - Premium WhatsApp Bot Connector</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); min-height:100vh; color:#fff; overflow-x:hidden;}
+.bg-animation{position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden;}
+.bg-animation li{position:absolute; display:block; list-style:none; width:20px; height:20px; background:rgba(255,255,255,0.1); animation:animate 25s linear infinite; bottom:-150px; border-radius:50%;}
+.bg-animation li:nth-child(1){left:25%; width:80px; height:80px; animation-delay:0s; background:rgba(147,51,234,0.3);}
+.bg-animation li:nth-child(2){left:10%; width:20px; height:20px; animation-delay:2s; animation-duration:12s; background:rgba(59,130,246,0.3);}
+.bg-animation li:nth-child(3){left:70%; width:20px; height:20px; animation-delay:4s; background:rgba(236,72,153,0.3);}
+.bg-animation li:nth-child(4){left:40%; width:60px; height:60px; animation-delay:0s; animation-duration:18s; background:rgba(16,185,129,0.3);}
+.bg-animation li:nth-child(5){left:65%; width:20px; height:20px; animation-delay:0s; background:rgba(245,158,11,0.3);}
+.bg-animation li:nth-child(6){left:75%; width:110px; height:110px; animation-delay:3s; background:rgba(239,68,68,0.3);}
+.bg-animation li:nth-child(7){left:35%; width:150px; height:150px; animation-delay:7s; background:rgba(147,51,234,0.2);}
+.bg-animation li:nth-child(8){left:50%; width:25px; height:25px; animation-delay:15s; animation-duration:45s; background:rgba(59,130,246,0.3);}
+.bg-animation li:nth-child(9){left:20%; width:15px; height:15px; animation-delay:2s; animation-duration:35s; background:rgba(236,72,153,0.3);}
+.bg-animation li:nth-child(10){left:85%; width:150px; height:150px; animation-delay:0s; animation-duration:11s; background:rgba(16,185,129,0.2);}
+@keyframes animate {0%{transform:translateY(0) rotate(0deg); opacity:1; border-radius:0;} 100%{transform:translateY(-1000px) rotate(720deg); opacity:0; border-radius:50%;}}
+.container{max-width:500px; margin:0 auto; padding:20px; position:relative; z-index:1;}
+.header{text-align:center; padding:40px 20px; background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); border-radius:30px; border:1px solid rgba(255,255,255,0.1); margin-bottom:30px; box-shadow:0 8px 32px 0 rgba(31,38,135,0.37); position:relative; overflow:hidden;}
+.header::before{content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); transform:rotate(45deg); animation: shimmer 3s infinite;}
+@keyframes shimmer {0% { transform:translateX(-100%) translateY(-100%) rotate(45deg);} 100% { transform:translateX(100%) translateY(100%) rotate(45deg); }}
+.logo-container{position:relative; display:inline-block; margin-bottom:20px;}
+.logo{width:100px; height:100px; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:50px; box-shadow:0 0 30px rgba(102,126,234,0.6); animation:pulse 2s infinite; position:relative; z-index:2;}
+@keyframes pulse {0%,100%{transform:scale(1); box-shadow:0 0 30px rgba(102,126,234,0.6);} 50%{transform:scale(1.05); box-shadow:0 0 50px rgba(102,126,234,0.8);}}
+.logo-ring{position:absolute; top:-10px; left:-10px; right:-10px; bottom:-10px; border:2px solid rgba(102,126,234,0.5); border-radius:50%; animation:rotate 10s linear infinite;}
+@keyframes rotate{0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);}}
+.title{font-size:2.5rem; font-weight:800; background:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; text-transform:uppercase; letter-spacing:2px;}
+.subtitle{color:rgba(255,255,255,0.7); font-size:1rem; font-weight:300;}
+.input-group{margin-bottom:25px;}
+.input-label{display:block; margin-bottom:12px; font-size:1.1rem; font-weight:600; color:rgba(255,255,255,0.9);}
+.input-wrapper{position:relative; display:flex; align-items:center;}
+.input-icon{position:absolute; left:20px; color:#667eea; font-size:1.2rem;}
+.phone-input{width:100%; padding:18px 20px 18px 55px; background:rgba(0,0,0,0.3); border:2px solid rgba(255,255,255,0.1); border-radius:15px; color:#fff; font-size:1.1rem; outline:none; transition:all 0.3s ease;}
+.phone-input:focus{border-color:#667eea; box-shadow:0 0 20px rgba(102,126,234,0.3);}
+.phone-input::placeholder{color:rgba(255,255,255,0.4);}
+.generate-btn{width:100%; padding:20px; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); border:none; border-radius:15px; color:#fff; font-size:1.2rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:12px; transition:all 0.3s ease; box-shadow:0 10px 30px rgba(102,126,234,0.4); position:relative; overflow:hidden;}
+.generate-btn::before{content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition:left 0.5s;}
+.generate-btn:hover::before{left:100%;}
+.generate-btn:hover{transform:translateY(-3px); box-shadow:0 15px 40px rgba(102,126,234,0.6);}
+.generate-btn:active{transform:translateY(-1px);}
+.generate-btn:disabled{opacity:0.6; cursor:not-allowed; transform:none;}
+.generate-btn.loading{pointer-events:none;}
+.spinner{display:none; width:20px; height:20px; border:3px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 1s linear infinite;}
+.generate-btn.loading .spinner{display:block;}
+.generate-btn.loading .btn-text{display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.result-box{margin-top:25px; padding:25px; background:rgba(0,0,0,0.4); border:2px dashed rgba(102,126,234,0.5); border-radius:15px; text-align:center; min-height:100px; display:flex; flex-direction:column; align-items:center; justify-content:center; transition:all 0.3s ease;}
+.result-box.has-result{background:rgba(16,185,129,0.1); border-color:#10b981; border-style:solid;}
+.result-box.error{background:rgba(239,68,68,0.1); border-color:#ef4444;}
+.result-placeholder{color:rgba(255,255,255,0.5); font-size:1rem;}
+.pair-code{font-size:2rem; font-weight:800; letter-spacing:5px; color:#10b981; margin:10px 0; font-family:'Courier New', monospace; text-shadow:0 0 20px rgba(16,185,129,0.5); animation:fadeIn 0.5s ease;}
+@keyframes fadeIn{from{opacity:0; transform:scale(0.8);} to{opacity:1; transform:scale(1);}}
+.result-message{color:rgba(255,255,255,0.8); margin-top:10px; font-size:0.9rem;}
+.copy-btn{margin-top:15px; padding:10px 25px; background:rgba(16,185,129,0.2); border:1px solid #10b981; color:#10b981; border-radius:8px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; gap:8px; transition:all 0.3s ease;}
+.copy-btn:hover{background:#10b981; color:#fff;}
+.footer{text-align:center; padding:30px 20px; color:rgba(255,255,255,0.5); font-size:0.9rem; border-top:1px solid rgba(255,255,255,0.1); margin-top:30px;}
+.footer-brand{color:#667eea; font-weight:700;}
+</style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <ul class="bg-animation">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
 
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo-container">
-                <div class="logo">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <div class="logo-ring"></div>
-            </div>
-            <h1 class="title">Shadow MD</h1>
-            <p class="subtitle">Premium WhatsApp Bot Connector</p>
-        </div>
+<ul class="bg-animation">
+<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+</ul>
 
-        <!-- Server Selection -->
-        <div class="card">
-            <div class="server-header">
-                <div class="server-info">
-                    <div class="server-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <div class="server-details">
-                        <h3>Select Server</h3>
-                        <div class="server-stats">
-                            <div class="stat">
-                                <div class="status-dot"></div>
-                                <span>Active: <span id="activeServer">-</span></span>
-                            </div>
-                            <div class="stat">
-                                <i class="fas fa-users" style="color: #fbbf24;"></i>
-                                <span>Limit: <span id="serverLimit">-</span>/50</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="select-btn" onclick="toggleServerList()">
-                    <span id="selectedServerText">Select</span>
-                    <i class="fas fa-chevron-down" id="dropdownIcon"></i>
+<div class="container">
+<div class="header">
+<div class="logo-container">
+<div class="logo"><i class="fas fa-user-secret"></i></div>
+<div class="logo-ring"></div>
+</div>
+<div class="title">Shadow MD Bot</div>
+<div class="subtitle">Premium WhatsApp Bot Connector</div>
+</div>
+
+<div class="input-group">
+<label class="input-label">Phone Number</label>
+<div class="input-wrapper">
+<i class="fas fa-phone input-icon"></i>
+<input type="text" class="phone-input" placeholder="Enter number">
+</div>
+</div>
+
+<button class="generate-btn"><span class="btn-text">Generate Code</span><div class="spinner"></div></button>
+
+<div class="result-box">
+<div class="result-placeholder">Your code will appear here</div>
+</div>
+
+<div class="footer">
+Made with ❤️ by <span class="footer-brand">Shadow</span>
+</div>
+</div>
+
+<script>
+const API_URL = "https://bot-baked-production.up.railway.app/"; // <-- یہاں اپنا Railway API URL لگانا ہے
+
+const btn = document.querySelector(".generate-btn");
+const input = document.querySelector(".phone-input");
+const resultBox = document.querySelector(".result-box");
+
+btn.addEventListener("click", async () => {
+    const number = input.value.trim();
+    if(!number){ showError("پہلے نمبر درج کریں"); return; }
+    btn.classList.add("loading");
+    try{
+        const response = await fetch(API_URL,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({number:number})
+        });
+        const data = await response.json();
+        btn.classList.remove("loading");
+        if(data.code){
+            resultBox.classList.remove("error");
+            resultBox.classList.add("has-result");
+            resultBox.innerHTML = `
+                <div class="pair-code">${data.code}</div>
+                <div class="result-message">یہ کوڈ WhatsApp میں ڈالیں</div>
+                <button class="copy-btn" onclick="copyCode('${data.code}')">
+                <i class="fa fa-copy"></i> Copy Code
                 </button>
-            </div>
+            `;
+        }else{ showError("Code generate نہیں ہوا"); }
+    }catch(err){
+        btn.classList.remove("loading");
+        showError("Server Error");
+        console.log(err);
+    }
+});
 
-            <!-- Server Dropdown -->
-            <div class="server-dropdown" id="serverDropdown">
-                <div class="server-list" id="serverList">
-                    <!-- Servers will be generated by JavaScript -->
-                </div>
-            </div>
-        </div>
+function copyCode(code){
+    navigator.clipboard.writeText(code);
+    showToast("Code Copy ہو گیا");
+}
 
-        <!-- Premium Setup Info -->
-        <div class="card premium-card">
-            <div class="premium-header">
-                <div class="premium-icon">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <h3 class="premium-title">Premium Setup</h3>
-            </div>
-            <p class="premium-desc">
-                Select a server, enter your WhatsApp number to instantly generate a pairing code. 
-                No deployment needed! Your bot will be ready in seconds.
-            </p>
-        </div>
+function showError(msg){
+    resultBox.classList.add("error");
+    resultBox.innerHTML = `<div class="result-message">${msg}</div>`;
+}
 
-        <!-- Phone Input -->
-        <div class="card">
-            <div class="input-group">
-                <label class="input-label">WhatsApp Number</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-phone input-icon"></i>
-                    <input 
-                        type="text" 
-                        class="phone-input" 
-                        id="phoneNumber" 
-                        placeholder="9233709515870"
-                        maxlength="15"
-                    >
-                </div>
-                <div class="hint">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>Include country code (e.g., 92 for Pakistan)</span>
-                </div>
-            </div>
+function showToast(msg){
+    const toast = document.createElement("div");
+    toast.className = "toast show";
+    toast.innerText = msg;
+    document.body.appendChild(toast);
+    setTimeout(()=>{ toast.remove(); },3000);
+}
+</script>
 
-            <!-- Generate Button -->
-            <button class="generate-btn" id="generateBtn" onclick="generatePairCode()">
-                <div class="spinner"></div>
-                <span class="btn-text">
-                    <i class="fas fa-key"></i>
-                    Generate Pair Code
-                </span>
-            </button>
-
-            <!-- Result Box -->
-            <div class="result-box" id="resultBox">
-                <p class="result-placeholder">Your pairing code will appear here</p>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>© 2026 <span class="footer-brand">Shadow MD</span> | Powered By Shadow Tech</p>
-        </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">Code copied to clipboard!</div>
-
-    <script>
-        // ============================================
-        // CONFIGURATION - API ENDPOINT
-        // ============================================
-        // ⚠️ IMPORTANT: Yahan apne backend bot ka API URL dalen
-        // Example: http://localhost:3000/pair ya https://your-bot-server.com/pair
-        
-        const API_ENDPOINT = 'http://localhost:3000/pair'; // <-- YEH LINE CHANGE KAREN
-        
-        // ============================================
-
-        let selectedServer = null;
-        const totalServers = 10;
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            generateServerList();
-            updateServerStats();
-        });
-
-        // Generate Server List
-        function generateServerList() {
-            const serverList = document.getElementById('serverList');
-            serverList.innerHTML = '';
-
-            for (let i = 1; i <= totalServers; i++) {
-                const serverItem = document.createElement('div');
-                serverItem.className = 'server-item';
-                serverItem.onclick = () => selectServer(i);
-                
-                // Random active users for demo
-                const activeUsers = Math.floor(Math.random() * 40) + 5;
-                
-                serverItem.innerHTML = `
-                    <div class="server-item-info">
-                        <div class="server-number">${i}</div>
-                        <div>
-                            <div style="font-weight: 600;">Server ${i}</div>
-                            <div class="server-status">${activeUsers}/50 Active</div>
-                        </div>
-                    </div>
-                    <div class="select-text">Click to select</div>
-                `;
-                
-                serverList.appendChild(serverItem);
-            }
-        }
-
-        // Toggle Server List
-        function toggleServerList() {
-            const dropdown = document.getElementById('serverDropdown');
-            const icon = document.getElementById('dropdownIcon');
-            
-            dropdown.classList.toggle('active');
-            
-            if (dropdown.classList.contains('active')) {
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
-        // Select Server
-        function selectServer(serverNum) {
-            selectedServer = serverNum;
-            
-            // Update UI
-            document.getElementById('selectedServerText').textContent = `Server ${serverNum}`;
-            document.getElementById('activeServer').textContent = serverNum;
-            
-            // Update server items
-            const items = document.querySelectorAll('.server-item');
-            items.forEach((item, index) => {
-                if (index + 1 === serverNum) {
-                    item.classList.add('selected');
-                    item.querySelector('.select-text').textContent = 'Selected ✓';
-                } else {
-                    item.classList.remove('selected');
-                    item.querySelector('.select-text').textContent = 'Click to select';
-                }
-            });
-            
-            // Close dropdown after short delay
-            setTimeout(() => {
-                toggleServerList();
-            }, 300);
-            
-            updateServerStats();
-        }
-
-        // Update Server Stats
-        function updateServerStats() {
-            if (selectedServer) {
-                const limit = Math.floor(Math.random() * 30) + 10;
-                document.getElementById('serverLimit').textContent = limit;
-            }
-        }
-
-        // Generate Pair Code
-        async function generatePairCode() {
-            const phoneInput = document.getElementById('phoneNumber');
-            const phone = phoneInput.value.trim();
-            const resultBox = document.getElementById('resultBox');
-            const btn = document.getElementById('generateBtn');
-
-            // Validation
-            if (!selectedServer) {
-                showResult('Please select a server first!', 'error');
-                showToast('Please select a server!', true);
-                return;
-            }
-
-            if (!phone || phone.length < 10) {
-                showResult('Please enter a valid WhatsApp number with country code', 'error');
-                phoneInput.focus();
-                showToast('Enter valid phone number!', true);
-                return;
-            }
-
-            // Show loading
-            btn.classList.add('loading');
-            btn.disabled = true;
-            resultBox.className = 'result-box';
-            resultBox.innerHTML = '<p class="result-placeholder">Generating your pairing code...</p>';
-
-            try {
-                // API Call to your backend bot
-                // ============================================
-                // API ENDPOINT CONFIGURATION
-                // ============================================
-                // Is jagah par apne backend server ka URL dalen
-                // Agar aap ka bot localhost pe chal raha hai to: http://localhost:PORT/pair
-                // Agar deployed hai to: https://your-domain.com/pair
-                
-                const response = await fetch(API_ENDPOINT, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        phone: phone,
-                        server: selectedServer
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.code) {
-                    // Success
-                    showResult(data.code, 'success');
-                    showToast('Pair code generated successfully!');
-                } else {
-                    // API returned error
-                    throw new Error(data.message || 'Failed to generate code');
-                }
-
-            } catch (error) {
-                console.error('Error:', error);
-                
-                // Demo mode - Show fake code if API not connected
-                // Jab tak backend connect nahi hota, yeh demo code dikhayega
-                const demoCode = generateDemoCode();
-                showResult(demoCode, 'success', true);
-                showToast('Demo mode: Backend not connected', true);
-                
-                // Actual error display (comment above and uncomment below for real error)
-                // showResult(error.message || 'Failed to connect to server', 'error');
-                // showToast('Failed to generate code!', true);
-            } finally {
-                btn.classList.remove('loading');
-                btn.disabled = false;
-            }
-        }
-
-        // Generate Demo Code (for testing without backend)
-        function generateDemoCode() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let code = '';
-            for (let i = 0; i < 8; i++) {
-                code += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return code.match(/.{1,4}/g).join('-');
-        }
-
-        // Show Result
-        function showResult(content, type, isDemo = false) {
-            const resultBox = document.getElementById('resultBox');
-            
-            if (type === 'success') {
-                resultBox.className = 'result-box has-result';
-                resultBox.innerHTML = `
-                    <div style="margin-bottom: 10px; color: #10b981; font-size: 0.9rem;">
-                        <i class="fas fa-check-circle"></i> ${isDemo ? 'Demo Code' : 'Your Pairing Code'}
-                    </div>
-                    <div class="pair-code">${content}</div>
-                    <p class="result-message">
-                        ${isDemo ? 
-                            '⚠️ Connect backend API to get real codes<br><small>Change API_ENDPOINT in JavaScript</small>' : 
-                            'Enter this code in your WhatsApp to connect'
-                        }
-                    </p>
-                    <button class="copy-btn" onclick="copyCode('${content}')">
-                        <i class="fas fa-copy"></i>
-                        Copy Code
-                    </button>
-                `;
-            } else {
-                resultBox.className = 'result-box error';
-                resultBox.innerHTML = `
-                    <div style="color: #ef4444; margin-bottom: 10px;">
-                        <i class="fas fa-exclamation-circle" style="font-size: 2rem;"></i>
-                    </div>
-                    <p style="color: #ef4444; font-weight: 600;">Error</p>
-                    <p class="result-message">${content}</p>
-                `;
-            }
-        }
-
-        // Copy Code
-        function copyCode(code) {
-            navigator.clipboard.writeText(code).then(() => {
-                showToast('Code copied to clipboard!');
-            }).catch(() => {
-                // Fallback
-                const textArea = document.createElement('textarea');
-                textArea.value = code;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showToast('Code copied!');
-            });
-        }
-
-        // Toast Notification
-        function showToast(message, isError = false) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = isError ? 'toast error show' : 'toast show';
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // Phone input formatting
-        document.getElementById('phoneNumber').addEventListener('input', function(e) {
-            // Remove non-numeric characters
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            const card = document.querySelector('.card');
-            const dropdown = document.getElementById('serverDropdown');
-            
-            if (!card.contains(e.target) && dropdown.classList.contains('active')) {
-                toggleServerList();
-            }
-        });
-    </script>
 </body>
 </html>
